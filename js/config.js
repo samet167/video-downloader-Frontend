@@ -15,7 +15,7 @@
 
 const CONFIG = {
   /** Base URL of the Flask backend — NO trailing slash */
-  BACKEND_URL: "https://video-downloader-backend-1-5oer.onrender.com",
+  BACKEND_URL: "http://127.0.0.1:8080",
 
   /** Milliseconds before an /api/info request is considered timed out */
   REQUEST_TIMEOUT_MS: 30000,
