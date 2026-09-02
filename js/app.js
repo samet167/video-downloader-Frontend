@@ -74,20 +74,20 @@ function detectDevice() {
    § 4 — Platform detection from URL
    ══════════════════════════════════════════════════════════════════════════ */
 const PLATFORMS = [
-  { key: "youtube",   pattern: /youtube\.com|youtu\.be/i,  name: "YouTube",   icon: "▶" },
-  { key: "tiktok",    pattern: /tiktok\.com/i,              name: "TikTok",    icon: "🎵" },
-  { key: "instagram", pattern: /instagram\.com/i,           name: "Instagram", icon: "📸" },
-  { key: "facebook",  pattern: /facebook\.com|fb\.watch/i,  name: "Facebook",  icon: "👥" },
-  { key: "twitter",   pattern: /twitter\.com|x\.com/i,      name: "X / Twitter", icon: "✖" },
-  { key: "vimeo",     pattern: /vimeo\.com/i,               name: "Vimeo",     icon: "🎬" },
-  { key: "twitch",    pattern: /twitch\.tv/i,               name: "Twitch",    icon: "🟣" },
+  { key: "youtube",   pattern: /youtube\.com|youtu\.be/i,  name: "YouTube",   icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>` },
+  { key: "tiktok",    pattern: /tiktok\.com/i,              name: "TikTok",    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3.3A4.9 4.9 0 0114.8 0h-3.5v16.4a2.4 2.4 0 01-2.4 2.1 2.4 2.4 0 01-2.4-2.4 2.4 2.4 0 012.4-2.4c.2 0 .5 0 .7.1V10a6 6 0 00-.7 0 5.9 5.9 0 00-5.9 5.9 5.9 5.9 0 005.9 5.9 5.9 5.9 0 005.9-5.9V8.1a8.4 8.4 0 004.9 1.6V6.2a4.9 4.9 0 01-3.1-2.9z"/></svg>` },
+  { key: "instagram", pattern: /instagram\.com/i,           name: "Instagram", icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>` },
+  { key: "facebook",  pattern: /facebook\.com|fb\.watch/i,  name: "Facebook",  icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.5 18.6 0 12 0S0 5.5 0 12.1C0 18 4.4 22.9 10.1 23.9V15.6H7.1v-3.5h3V9.5c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-1.9.9-1.9 1.9v2.2h3.3l-.5 3.5h-2.8v8.3C19.6 23 24 18 24 12.1z"/></svg>` },
+  { key: "twitter",   pattern: /twitter\.com|x\.com/i,      name: "X / Twitter", icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 1.6h3.3l-7.2 8.3 8.5 11.2h-6.6l-5.2-6.8-5.9 6.8H2l7.7-8.8L1.5 1.6h6.8l4.7 6.2 5.3-6.2zm-1.2 17.4h1.8L7.1 3.4H5.2l11.9 15.6z"/></svg>` },
+  { key: "vimeo",     pattern: /vimeo\.com/i,               name: "Vimeo",     icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.09 7.42c-.52 2.78-2.6 6.13-6.25 10.05-3.8 4.09-7.15 6.13-10.05 6.13-1.68 0-3.08-1.28-4.22-3.84L0 7.82C0 5 1.13 3.59 3.39 3.59c2 0 3.75 1.35 5.25 4.05L9 8.23c1.36-2.5 3-3.75 4.92-3.75 1.6 0 2.7 1.1 3.33 3.3 1.68-2.4 3.4-3.6 5.16-3.6 1.63 0 2.5 1.13 2.61 3.4z"></path></svg>` },
+  { key: "twitch",    pattern: /twitch\.tv/i,               name: "Twitch",    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>` },
 ];
 
 function detectPlatform(url) {
   for (const p of PLATFORMS) {
     if (p.pattern.test(url)) return p;
   }
-  return { key: "other", name: "Video", icon: "🎬" };
+  return { key: "other", name: "Video", icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>` };
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -229,7 +229,7 @@ async function init() {
   }
 
   if (!ok) {
-    setHeroError("⚠ Backend is offline or waking up (free tier cold start ~30s). Please refresh shortly.");
+    setHeroError("Backend is offline or waking up (free tier cold start ~30s). Please refresh shortly.");
     return;
   }
 
@@ -295,7 +295,7 @@ async function fetchVideoInfo() {
     const data = await API.fetchInfo(rawUrl);
     renderInfoCard(data, rawUrl);
   } catch (err) {
-    setHeroError("❌ " + err.message.replace(/\n/g, "  "));
+    setHeroError(err.message.replace(/\n/g, "  "));
   } finally {
     btnRestore(fetchBtn, origHtml);
   }
@@ -307,7 +307,7 @@ async function fetchVideoInfo() {
 function renderInfoCard(data, originalUrl) {
   // Platform badge
   const platform = detectPlatform(originalUrl);
-  $("dl-platform-icon").textContent = platform.icon;
+  $("dl-platform-icon").innerHTML = platform.icon;
   $("dl-platform-name").textContent = platform.name;
 
   // Thumbnail
@@ -319,11 +319,11 @@ function renderInfoCard(data, originalUrl) {
   $("info-title").textContent    = data.title    || "N/A";
 
   const uploader = data.uploader || "";
-  $("info-uploader").textContent = uploader ? `📺 ${uploader}` : "";
+  $("info-uploader").innerHTML = uploader ? `<svg style="display:inline;margin-right:4px;vertical-align:text-bottom" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg> ${uploader}` : "";
 
   const best = data.formats && data.formats[0];
-  $("info-filesize").textContent = (best && best.filesize)
-    ? `📦 Approx. ${fmtBytes(best.filesize)}`
+  $("info-filesize").innerHTML = (best && best.filesize)
+    ? `<svg style="display:inline;margin-right:4px;vertical-align:text-bottom" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Approx. ${fmtBytes(best.filesize)}`
     : "";
 
   // Preselect best available quality radio
@@ -488,7 +488,7 @@ function handleProgressEvent(progress, resolvedSaveDir) {
     }
 
     if (progress.filename) {
-      $("progress-filename").textContent = `📄 ${progress.filename}`;
+      $("progress-filename").innerHTML = `<svg style="display:inline;margin-right:4px;vertical-align:text-bottom" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> ${progress.filename}`;
     }
     return;
   }
