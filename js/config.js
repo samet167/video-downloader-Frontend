@@ -15,7 +15,16 @@
 
 const CONFIG = {
   /** Base URL of the Flask backend — NO trailing slash */
-  BACKEND_URL: "http://127.0.0.1:8080",
+  BACKEND_URL: (function() {
+    if (typeof window !== "undefined" && window.ENV && window.ENV.API_BASE) {
+      return window.ENV.API_BASE.replace(/\/api\/?$/, "");
+    }
+    const isLocal = typeof window !== "undefined" && 
+      (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "");
+    return isLocal 
+      ? "http://127.0.0.1:5000"
+      : "https://video-downloader-backend-1-5oer.onrender.com";
+  })(),
 
   /** Milliseconds before an /api/info request is considered timed out */
   REQUEST_TIMEOUT_MS: 30000,
