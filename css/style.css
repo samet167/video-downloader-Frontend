@@ -242,6 +242,8 @@ body {
 /* Mobile drawer */
 .nav-drawer {
   display: none;
+  position: absolute;
+  top: 100%; left: 0; right: 0;
   flex-direction: column;
   padding: 0.75rem 1.5rem 1.25rem;
   background: var(--bg);
