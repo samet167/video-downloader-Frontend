@@ -1173,6 +1173,11 @@ button, a, [role="button"] { touch-action: manipulation; }
    RESPONSIVE — Mobile (< 640px)
    ══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 639px) {
+  .nav-inner { height: 56px; gap: 0.75rem; padding: 0 1rem; }
+  .logo-text { font-size: 1rem; }
+  .api-badge { padding: 0.2rem 0.5rem; font-size: 0.65rem; }
+  .theme-btn, .nav-hamburger { width: 34px; height: 34px; }
+  
   .hero-glow { display: none; } /* Disable heavy blur on mobile for performance */
   
   .hero { 
