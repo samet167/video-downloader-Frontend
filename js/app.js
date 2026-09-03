@@ -414,43 +414,38 @@ async function startDownload() {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   § 14b — Save Blob to Device (cross-browser, iOS Safari compatible)
+   § 14b — Save Blob to Device (cross-browser, Android & iOS compatible)
    ══════════════════════════════════════════════════════════════════════════ */
 function saveBlobToDevice(blob, filename) {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
-
-  if (isIOS && navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome")) {
-    // iOS Safari: window.open with blob URL works better than <a> click
-    // because Safari on iOS blocks programmatic <a> downloads.
-    // The user will see the video in a new tab and can use "Share → Save to Files".
-    const blobUrl = URL.createObjectURL(blob);
-    const newTab  = window.open(blobUrl, "_blank");
-    if (!newTab) {
-      // Popup blocked — fallback to <a> tag method
-      _triggerAnchorDownload(blob, filename);
-    }
-    // Revoke after a delay to allow iOS to process
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-  } else {
-    // All other browsers: use <a download> method
-    _triggerAnchorDownload(blob, filename);
-  }
-}
-
-function _triggerAnchorDownload(blob, filename) {
   const blobUrl = URL.createObjectURL(blob);
   const a       = document.createElement("a");
   a.href        = blobUrl;
-  a.download    = filename;
+  a.download    = filename || "video.mp4";
+  a.rel         = "noopener";
   a.style.display = "none";
   document.body.appendChild(a);
   a.click();
-  // Cleanup
+
+  // Also bind "Download Again" to immediately re-save the cached blob
+  const btnAgain = $("btn-download-again");
+  if (btnAgain) {
+    btnAgain.onclick = (e) => {
+      e.preventDefault();
+      const a2 = document.createElement("a");
+      a2.href = blobUrl;
+      a2.download = filename || "video.mp4";
+      a2.style.display = "none";
+      document.body.appendChild(a2);
+      a2.click();
+      setTimeout(() => document.body.removeChild(a2), 1000);
+    };
+  }
+
+  // Cleanup after user has had plenty of time to save
   setTimeout(() => {
-    document.body.removeChild(a);
-    URL.revokeObjectURL(blobUrl);
-  }, 15000);
+    try { document.body.removeChild(a); } catch (_) {}
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 120000);
+  }, 1000);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
