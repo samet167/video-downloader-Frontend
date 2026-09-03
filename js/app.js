@@ -723,7 +723,48 @@ $$(".nav-link, .nav-drawer-link").forEach(a => {
   });
 });
 
+// Mobile Bottom Navigation Tabs
+const bottomNavTabs = $$(".mobile-bottom-nav .nav-tab");
+bottomNavTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const targetId = tab.dataset.target;
+    bottomNavTabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    if (targetId === "status-action") {
+      // Refresh API check and scroll to top badge or show toast
+      checkApiHealth();
+      const badge = $("api-status-badge");
+      if (badge) {
+        badge.classList.remove("hidden");
+        badge.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+});
+
+// Quick Platform Chips
+$$(".qp-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    const p = chip.dataset.platform;
+    const input = $("hero-url");
+    if (input) {
+      input.focus();
+      input.placeholder = `Paste ${chip.getAttribute("title") || p} link here…`;
+      input.parentElement.classList.add("pulse-focus");
+      setTimeout(() => input.parentElement.classList.remove("pulse-focus"), 800);
+    }
+  });
+});
+
 /* ══════════════════════════════════════════════════════════════════════════
    § 22 — Boot
    ══════════════════════════════════════════════════════════════════════════ */
 init();
+
