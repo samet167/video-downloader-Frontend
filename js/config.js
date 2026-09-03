@@ -23,7 +23,7 @@ const CONFIG = {
       (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "");
     return isLocal 
       ? "http://127.0.0.1:5000"
-      : "https://video-downloader-backend-1-5oer.onrender.com";
+      : "https://everything-attending-proceeding-dictionary.trycloudflare.com";
   })(),
 
   /** Milliseconds before an /api/info request is considered timed out */
