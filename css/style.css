@@ -131,6 +131,17 @@ body {
   gap: 0.5rem;
   flex-shrink: 0;
 }
+.brand-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+  transition: transform 0.25s ease;
+}
+.nav-logo:hover .brand-logo-img {
+  transform: scale(1.08);
+}
 .logo-mark {
   width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
